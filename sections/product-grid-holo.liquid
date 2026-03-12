@@ -33,10 +33,11 @@
 
 <section class="jsd-grid-section">
   <div class="jsd-grid-header">
-    <h2 class="jsd-grid-title">{{ section.settings.title }}</h2>
+    <h1 class="jsd-grid-title">{{ section.settings.title }}</h1>
   </div>
 
-  <div class="jsd-grid">
+  <div class="jsd-grid-container">
+    <div class="jsd-grid">
     {% assign collection = section.settings.collection %}
     {% if collection != blank and collection.products_count > 0 %}
       {% for product in collection.products limit: section.settings.product_count %}
@@ -64,7 +65,7 @@
                 </div>
             </div>
             <!-- BACK -->
-            <div class="jsd-card-face jsd-card-back">
+            <div class="jsd-card-face jsd-card-back" style="transform: rotateY(180deg);">
                 <div class="jsd-card-back-header">
                     <p class="jsd-card-eyebrow">Jehovah Sneaky Designs</p>
                     <h2 class="jsd-card-title">{{ placeholder_designs[i] }}</h2>
@@ -83,6 +84,7 @@
         </div>
       {% endfor %}
     {% endif %}
+    </div>
   </div>
 </section>
 

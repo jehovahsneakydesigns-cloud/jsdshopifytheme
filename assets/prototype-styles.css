@@ -25,6 +25,12 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 800 !important;
   letter-spacing: -0.05em !important;
   text-transform: uppercase;
+  line-height: 0.9 !important;
+}
+
+.jsd-grid-title {
+  font-size: clamp(1.5rem, 3.8vw, 4.2rem) !important;
+  margin-bottom: 2rem;
 }
 
 /* Grain Overlay */
@@ -41,24 +47,26 @@ h1, h2, h3, h4, h5, h6 {
 /* 3D HoloCard Base */
 .jsd-card-container {
   perspective: 1400px;
-  width: 100%;
-  max-width: 350px;
+  width: min(350px, calc((100vw - 120px) / 4));
   aspect-ratio: 2/3;
   margin: 10px;
+  flex: 0 0 auto;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .jsd-card-container {
-    max-width: 280px;
+    width: 260px;
+    margin: 10px auto;
   }
 }
 
 .jsd-card {
-  position: relative;
   width: 100%;
   height: 100%;
+  position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  background: transparent;
   cursor: pointer;
 }
 
@@ -71,10 +79,34 @@ h1, h2, h3, h4, h5, h6 {
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+}
+
+.jsd-card-front {
+  background: #ffffff;
   border: 1.5px solid rgba(0,0,0,0.18);
-  background: #fff;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+}
+
+.jsd-card-image-wrapper {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 6px;
+}
+
+.jsd-card-image {
+  width: 100%;
+  height: 100%;
+  max-width: 230px;
+  max-height: 230px;
+  object-fit: contain;
+  display: block;
 }
 
 .jsd-card-back {
@@ -86,18 +118,50 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Parallax Hero Styles */
-.hero-parallax-container {
-  position: sticky;
-  top: 0;
-  height: 100vh;
+.jsd-hero-parallax {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: center;
+    padding: 0 20px;
+}
+
+/* JSD Grid Section */
+.jsd-grid-section {
+  padding: 80px 40px;
+  background: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  z-index: 1;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
 }
 
-.hero-parallax-content {
-  text-align: center;
-  transition: opacity 0.3s ease-out;
+.jsd-grid-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.jsd-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1400px;
+  width: 100%;
+  padding: 24px 0;
+}
+
+@media (max-width: 768px) {
+  .jsd-grid-section {
+    padding: 40px 20px;
+  }
 }
