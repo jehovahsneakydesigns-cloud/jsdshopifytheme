@@ -6,49 +6,57 @@
 {% endcomment %}
 
 <div class="jsd-card-container">
-  <div class="jsd-card" data-product-handle="{{ product.handle }}">
+  <div class="jsd-card" data-jsd-card>
     <!-- FRONT FACE -->
     <div class="jsd-card-face jsd-card-front">
       <div class="jsd-card-image-wrapper">
         {% if product.featured_media != blank %}
-          <img 
-            src="{{ product.featured_media | img_url: '600x' }}" 
+          <img
+            src="{{ product.featured_media | img_url: '600x' }}"
             alt="{{ product.title | escape }}"
-            loading="lazy"
             class="jsd-card-image"
+            loading="lazy"
+            width="auto"
+            height="auto"
           >
         {% else %}
-          {{ 'product-1' | placeholder_svg_tag: 'jsd-card-image' }}
+          {{ 'product-1' | placeholder_svg_tag: 'jsd-card-image jsd-placeholder' }}
         {% endif %}
       </div>
-      
-      {% if rarity != blank %}
-        <div class="jsd-card-rarity">
-          <span>◆ {{ rarity }}</span>
-        </div>
-      {% endif %}
+      <div class="jsd-card-rarity">
+        <span>◆ {{ rarity | default: '00X' }}</span>
+      </div>
     </div>
 
     <!-- BACK FACE -->
     <div class="jsd-card-face jsd-card-back">
       <div class="jsd-card-back-header">
-        <p class="jsd-card-eyebrow">Jehovah Sneaky Designs</p>
-        <h2 class="jsd-card-title">{{ product.title | upcase }}</h2>
+        <p class="jsd-card-eyebrow">JSD // {{ product.vendor | default: 'COLLECTION 2026' }}</p>
+        <h2 class="jsd-card-title">{{ product.title | default: 'SNEAKY DESIGN' }}</h2>
       </div>
 
       <div class="jsd-card-back-content">
-        <p class="jsd-card-description">{{ product.description | strip_html | truncate: 150 }}</p>
-        <p class="jsd-card-price">{{ product.price | money }}</p>
+        <div class="jsd-card-details">
+          <p class="jsd-card-price">{{ product.price | money | default: '$0.00' }}</p>
+          <div class="jsd-card-description">
+            {{ product.description | strip_html | truncate: 120 | default: 'High-fidelity brutalist design from the JSD collection.' }}
+          </div>
+        </div>
       </div>
 
       <div class="jsd-card-back-footer">
+        {% if product != blank %}
           <form method="post" action="/cart/add">
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
-            <button type="submit" class="jsd-card-btn">[ Buy Now ]</button>
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <button type="submit" class="jsd-card-btn">[ Add to Bag ]</button>
           </form>
-          <div class="jsd-card-back-nav">
-             <button class="jsd-card-back-close" type="button">← [ Go Back ]</button>
-          </div>
+        {% else %}
+          <button class="jsd-card-btn">[ View Details ]</button>
+        {% endif %}
+        
+        <div class="jsd-card-back-nav">
+          <button class="jsd-card-back-close" type="button" data-jsd-close>← [ Go Back ]</button>
+        </div>
       </div>
     </div>
   </div>

@@ -29,41 +29,46 @@ function initHeroParallax() {
  * HoloCards: Handles mouse tilt and click flip
  */
 function initHoloCards() {
-    const cards = document.querySelectorAll('.jsd-card');
+  const cards = document.querySelectorAll('[data-jsd-card]');
 
-    cards.forEach(card => {
-        const container = card.parentElement;
+  cards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      if (card.classList.contains('is-flipped')) return;
 
-        // Tilt effect
-        container.addEventListener('mousemove', (e) => {
-            if (card.classList.contains('is-flipped')) return;
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
 
-            const rect = container.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (centerY - y) / 10;
-            const rotateY = (x - centerX) / 10;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
 
-            card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.03)`;
-        });
+      const rotateX = (y - centerY) / 8; // Slight tilt
+      const rotateY = (centerX - x) / 8;
 
-        container.addEventListener('mouseleave', () => {
-            if (card.classList.contains('is-flipped')) return;
-            card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
-        });
-
-        // Flip effect
-        card.addEventListener('click', () => {
-            card.classList.toggle('is-flipped');
-            if (card.classList.contains('is-flipped')) {
-                card.style.transform = 'rotateY(180deg)';
-            } else {
-                card.style.transform = 'rotateY(0)';
-            }
-        });
+      card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
+
+    card.addEventListener('mouseleave', () => {
+      if (!card.classList.contains('is-flipped')) {
+        card.style.transform = 'rotateX(0) rotateY(0)';
+      }
+    });
+
+    card.addEventListener('click', (e) => {
+      // Don't flip if clicking the close button or the buy button
+      if (e.target.closest('[data-jsd-close]') || e.target.closest('.jsd-card-btn')) return;
+      
+      card.classList.add('is-flipped');
+      card.style.transform = 'rotateY(180deg)';
+    });
+
+    const closeBtn = card.querySelector('[data-jsd-close]');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        card.classList.remove('is-flipped');
+        card.style.transform = 'rotateX(0) rotateY(0)';
+      });
+    }
+  });
 }

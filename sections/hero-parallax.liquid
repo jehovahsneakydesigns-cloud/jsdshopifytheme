@@ -23,45 +23,57 @@
 }
 {% endschema %}
 
-<section class="hero-parallax-container">
-  <div class="hero-parallax-content">
-    <p class="hero-eyebrow">{{ section.settings.eyebrow | upcase }}</p>
-    <h1 class="hero-title">{{ section.settings.title | upcase }}</h1>
-    
-    <div class="hero-scroll-indicator">
-      <span class="hero-arrow">↓</span>
-    </div>
+<section class="jsd-hero-parallax">
+  <p class="jsd-hero-eyebrow">{{ section.settings.eyebrow | upcase }}</p>
+  <h1 class="jsd-hero-title">{{ section.settings.title | upcase }}</h1>
+  
+  <div class="jsd-hero-scroll">
+    SCROLL
   </div>
 </section>
 
 <style>
-.hero-eyebrow {
-  font-size: 10px;
-  letter-spacing: 0.5em;
-  text-transform: uppercase;
-  opacity: 0.3;
-  font-weight: 800;
-  margin-bottom: 24px;
+.jsd-hero-parallax {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: center;
+    padding: 0 20px;
 }
 
-.hero-title {
-  font-weight: 800;
-  letter-spacing: -0.05em;
-  line-height: 1;
-  font-size: clamp(1.5rem, 5vw, 4.2rem);
-  max-width: 800px;
-  margin: 0 auto;
+.jsd-hero-eyebrow {
+    font-size: clamp(10px, 2vw, 14px);
+    letter-spacing: 0.6em;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    opacity: 0.6;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
-.hero-scroll-indicator {
-  margin-top: 60px;
+.jsd-hero-title {
+    font-size: clamp(3rem, 12vw, 8rem);
+    line-height: 0.85;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: -0.05em;
+    font-family: 'Montserrat', sans-serif !important;
 }
 
-.hero-arrow {
-  display: inline-block;
-  font-size: 30px;
-  opacity: 0.35;
-  animation: bounce 1.4s infinite ease-in-out;
+.jsd-hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    font-weight: 700;
+    opacity: 0.3;
+    animation: bounce 1.4s infinite ease-in-out;
 }
 
 @keyframes bounce {

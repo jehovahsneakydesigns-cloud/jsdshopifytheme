@@ -38,28 +38,39 @@
 
   <div class="jsd-grid">
     {% assign collection = section.settings.collection %}
-    {% if collection != blank %}
+    {% if collection != blank and collection.products_count > 0 %}
       {% for product in collection.products limit: section.settings.product_count %}
         {% assign rarity_index = forloop.index | prepend: '00' | slice: -3, 3 %}
         {% render 'product-card-holo', product: product, rarity: rarity_index %}
       {% endfor %}
     {% else %}
-      {% for i in (1..section.settings.product_count) %}
-        {% assign rarity_index = i | prepend: '00' | slice: -3, 3 %}
+      {% comment %} 
+        Show high-fidelity placeholders matching the prototype designs 
+      {% endcomment %}
+      {% assign placeholder_designs = "THE SNEAKER,DIVINE DNA,INJOY,IDENTITY (ID)" | split: ',' %}
+      {% assign placeholder_images = "SneakerBlack.png,DNABlack.png,InjoyFrontBlack.png,IDBlack.png" | split: ',' %}
+      {% assign placeholder_rarities = "001,002,003,004" | split: ',' %}
+      
+      {% for i in (0..3) %}
         <div class="jsd-card-container">
           <div class="jsd-card is-placeholder">
+            <!-- FRONT -->
             <div class="jsd-card-face jsd-card-front">
                 <div class="jsd-card-image-wrapper">
-                    {{ 'product-' | append: i | placeholder_svg_tag: 'jsd-card-image' }}
+                    <img src="{{ placeholder_images[i] | asset_url }}" alt="{{ placeholder_designs[i] }}" class="jsd-card-image">
                 </div>
                 <div class="jsd-card-rarity">
-                  <span>◆ {{ rarity_index }}</span>
+                  <span>◆ {{ placeholder_rarities[i] }}</span>
                 </div>
             </div>
+            <!-- BACK -->
             <div class="jsd-card-face jsd-card-back">
                 <div class="jsd-card-back-header">
-                    <p class="jsd-card-eyebrow">Sample Product</p>
-                    <h2 class="jsd-card-title">SNEAKY DESIGN {{ i }}</h2>
+                    <p class="jsd-card-eyebrow">Jehovah Sneaky Designs</p>
+                    <h2 class="jsd-card-title">{{ placeholder_designs[i] }}</h2>
+                </div>
+                <div class="jsd-card-back-content">
+                  <p class="jsd-card-description">High-fidelity prototype design for JSD. Ported to Shopify theme.</p>
                 </div>
                 <div class="jsd-card-back-footer">
                     <button class="jsd-card-btn">[ View Details ]</button>

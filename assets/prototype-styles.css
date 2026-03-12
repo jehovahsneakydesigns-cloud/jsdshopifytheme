@@ -1,8 +1,6 @@
-/* Prototype Styles for JSD Theme */
-
 :root {
   --color-jsd-black: #111111;
-  --color-jsd-white: #FFFFFF;
+  --color-jsd-white: #ffffff;
   --font-jsd-heading: 'Montserrat', sans-serif;
   --font-jsd-body: 'Inter', sans-serif;
 }
@@ -12,11 +10,21 @@
   border-radius: 0 !important;
 }
 
-body {
-  font-family: var(--font-jsd-body);
-  background-color: var(--color-jsd-white);
-  color: var(--color-jsd-black);
-  cursor: crosshair;
+html, body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-jsd-white) !important;
+  color: var(--color-jsd-black) !important;
+  font-family: var(--font-jsd-body) !important;
+  cursor: crosshair !important;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-jsd-heading) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.05em !important;
+  text-transform: uppercase;
 }
 
 /* Grain Overlay */
@@ -36,6 +44,13 @@ body {
   width: 100%;
   max-width: 350px;
   aspect-ratio: 2/3;
+  margin: 10px;
+}
+
+@media (max-width: 640px) {
+  .jsd-card-container {
+    max-width: 280px;
+  }
 }
 
 .jsd-card {
