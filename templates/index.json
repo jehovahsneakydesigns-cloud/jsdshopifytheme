@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-parallax",
+      "settings": {}
+    },
+    "grid": {
+      "type": "product-grid-holo",
+      "settings": {
+        "title": "CHOOSE YOUR DESIGN."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "grid"
+  ]
+}

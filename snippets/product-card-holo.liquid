@@ -1,0 +1,177 @@
+{% comment %}
+    Interactive HoloCard Snippet
+    Accepts:
+    - product: Shopify Product object
+    - rarity: String (optional badge)
+{% endcomment %}
+
+<div class="jsd-card-container">
+  <div class="jsd-card" data-product-handle="{{ product.handle }}">
+    <!-- FRONT FACE -->
+    <div class="jsd-card-face jsd-card-front">
+      <div class="jsd-card-image-wrapper">
+        {% if product.featured_media != blank %}
+          <img 
+            src="{{ product.featured_media | img_url: '600x' }}" 
+            alt="{{ product.title | escape }}"
+            loading="lazy"
+            class="jsd-card-image"
+          >
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'jsd-card-image' }}
+        {% endif %}
+      </div>
+      
+      {% if rarity != blank %}
+        <div class="jsd-card-rarity">
+          <span>◆ {{ rarity }}</span>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- BACK FACE -->
+    <div class="jsd-card-face jsd-card-back">
+      <div class="jsd-card-back-header">
+        <p class="jsd-card-eyebrow">Jehovah Sneaky Designs</p>
+        <h2 class="jsd-card-title">{{ product.title | upcase }}</h2>
+      </div>
+
+      <div class="jsd-card-back-content">
+        <p class="jsd-card-description">{{ product.description | strip_html | truncate: 150 }}</p>
+        <p class="jsd-card-price">{{ product.price | money }}</p>
+      </div>
+
+      <div class="jsd-card-back-footer">
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+            <button type="submit" class="jsd-card-btn">[ Buy Now ]</button>
+          </form>
+          <div class="jsd-card-back-nav">
+             <button class="jsd-card-back-close" type="button">← [ Go Back ]</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.jsd-card-front {
+  padding: 14px;
+  justify-content: center;
+  align-items: center;
+}
+
+.jsd-card-image-wrapper {
+  width: 100%;
+  height: 100%;
+  max-height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jsd-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.jsd-card-rarity {
+  position: absolute;
+  bottom: 12px;
+  right: 16px;
+  font-family: 'Inter', monospace;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  opacity: 0.2;
+}
+
+.jsd-card-eyebrow {
+  font-size: 7px;
+  letter-spacing: 0.6em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  margin-bottom: 1rem;
+}
+
+.jsd-card-title {
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  font-size: 1.5rem;
+  line-height: 1.1;
+  margin: 0;
+}
+
+.jsd-card-back-header {
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.jsd-card-back-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.jsd-card-description {
+  font-family: 'Inter', monospace;
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.6;
+}
+
+.jsd-card-price {
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.jsd-card-btn {
+  width: 100%;
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  font-size: 9px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.jsd-card-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.jsd-card-back-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.jsd-card-back-nav {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.jsd-card-back-close {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 9px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.jsd-card-back-close:hover {
+    color: #fff;
+}
+</style>

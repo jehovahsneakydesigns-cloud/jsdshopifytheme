@@ -1,0 +1,88 @@
+/* Prototype Styles for JSD Theme */
+
+:root {
+  --color-jsd-black: #111111;
+  --color-jsd-white: #FFFFFF;
+  --font-jsd-heading: 'Montserrat', sans-serif;
+  --font-jsd-body: 'Inter', sans-serif;
+}
+
+/* 0px Border Radius System */
+* {
+  border-radius: 0 !important;
+}
+
+body {
+  font-family: var(--font-jsd-body);
+  background-color: var(--color-jsd-white);
+  color: var(--color-jsd-black);
+  cursor: crosshair;
+}
+
+/* Grain Overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  mix-blend-mode: multiply;
+}
+
+/* 3D HoloCard Base */
+.jsd-card-container {
+  perspective: 1400px;
+  width: 100%;
+  max-width: 350px;
+  aspect-ratio: 2/3;
+}
+
+.jsd-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.jsd-card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.jsd-card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border: 1.5px solid rgba(0,0,0,0.18);
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.jsd-card-back {
+  transform: rotateY(180deg);
+  background: #0a0a0a;
+  color: #fff;
+  border: none;
+  padding: 2rem;
+}
+
+/* Parallax Hero Styles */
+.hero-parallax-container {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.hero-parallax-content {
+  text-align: center;
+  transition: opacity 0.3s ease-out;
+}

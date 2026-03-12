@@ -1,0 +1,116 @@
+{% schema %}
+{
+  "name": "JSD HoloCard Grid",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Choose Your Design."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "product_count",
+      "min": 4,
+      "max": 12,
+      "step": 4,
+      "label": "Number of products",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "JSD HoloCard Grid"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="jsd-grid-section">
+  <div class="jsd-grid-header">
+    <h2 class="jsd-grid-title">{{ section.settings.title }}</h2>
+  </div>
+
+  <div class="jsd-grid">
+    {% assign collection = section.settings.collection %}
+    {% if collection != blank %}
+      {% for product in collection.products limit: section.settings.product_count %}
+        {% assign rarity_index = forloop.index | prepend: '00' | slice: -3, 3 %}
+        {% render 'product-card-holo', product: product, rarity: rarity_index %}
+      {% endfor %}
+    {% else %}
+      {% for i in (1..section.settings.product_count) %}
+        {% assign rarity_index = i | prepend: '00' | slice: -3, 3 %}
+        <div class="jsd-card-container">
+          <div class="jsd-card is-placeholder">
+            <div class="jsd-card-face jsd-card-front">
+                <div class="jsd-card-image-wrapper">
+                    {{ 'product-' | append: i | placeholder_svg_tag: 'jsd-card-image' }}
+                </div>
+                <div class="jsd-card-rarity">
+                  <span>◆ {{ rarity_index }}</span>
+                </div>
+            </div>
+            <div class="jsd-card-face jsd-card-back">
+                <div class="jsd-card-back-header">
+                    <p class="jsd-card-eyebrow">Sample Product</p>
+                    <h2 class="jsd-card-title">SNEAKY DESIGN {{ i }}</h2>
+                </div>
+                <div class="jsd-card-back-footer">
+                    <button class="jsd-card-btn">[ View Details ]</button>
+                    <div class="jsd-card-back-nav">
+                        <button class="jsd-card-back-close" type="button">← [ Go Back ]</button>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+</section>
+
+<style>
+.jsd-grid-section {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  padding: 100px 40px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.jsd-grid-header {
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.jsd-grid-title {
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+}
+
+.jsd-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+    .jsd-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+</style>

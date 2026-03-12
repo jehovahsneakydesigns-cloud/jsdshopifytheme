@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "product-grid-holo",
+      "settings": {
+        "title": "COLLECTION"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

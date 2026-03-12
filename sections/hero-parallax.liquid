@@ -1,0 +1,71 @@
+{% schema %}
+{
+  "name": "JSD Parallax Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text",
+      "default": "Jehovah Sneaky Designs"
+    },
+    {
+      "type": "textarea",
+      "id": "title",
+      "label": "Hero Title",
+      "default": "When Jesus Sneaks Up On Ya..."
+    }
+  ],
+  "presets": [
+    {
+      "name": "JSD Parallax Hero"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="hero-parallax-container">
+  <div class="hero-parallax-content">
+    <p class="hero-eyebrow">{{ section.settings.eyebrow | upcase }}</p>
+    <h1 class="hero-title">{{ section.settings.title | upcase }}</h1>
+    
+    <div class="hero-scroll-indicator">
+      <span class="hero-arrow">↓</span>
+    </div>
+  </div>
+</section>
+
+<style>
+.hero-eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  opacity: 0.3;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  font-size: clamp(1.5rem, 5vw, 4.2rem);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero-scroll-indicator {
+  margin-top: 60px;
+}
+
+.hero-arrow {
+  display: inline-block;
+  font-size: 30px;
+  opacity: 0.35;
+  animation: bounce 1.4s infinite ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(10px); }
+}
+</style>
